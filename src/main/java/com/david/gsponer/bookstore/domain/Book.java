@@ -1,11 +1,24 @@
 package com.david.gsponer.bookstore.domain;
 
-public class Book {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	private String title, author, year, isbn;
-	private int price;
+@Entity
+public class Book {
 	
-	public Book(String title, String author, String year, String isbn, int price) {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
+	
+	private String title;
+	private String author;
+	private String year;
+	private String isbn;
+	private float price;
+	
+	public Book(String title, String author, String year, String isbn, float price) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -17,6 +30,12 @@ public class Book {
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getTitle() {
@@ -51,13 +70,15 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
+
+
 	
 	
 	
