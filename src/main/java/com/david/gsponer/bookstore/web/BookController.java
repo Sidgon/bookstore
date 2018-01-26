@@ -1,6 +1,7 @@
 package com.david.gsponer.bookstore.web;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.david.gsponer.bookstore.domain.Book;
 import com.david.gsponer.bookstore.domain.BookRepository;
@@ -22,7 +24,7 @@ public class BookController {
 	@Autowired
 	private CategoryRepository crepository;
 	
-	@RequestMapping(value="/booklist", method=RequestMethod.GET)
+	@RequestMapping(value="/booklist")
 	public String getindex(Model model) {
 		ArrayList<Book> books=(ArrayList<Book>) repository.findAll();
 		model.addAttribute("books", books);
@@ -59,7 +61,18 @@ public class BookController {
 	public String saveeditedBook(@PathVariable("id") Long bookId, Model model, Book book){
 		repository.delete(bookId);
 		repository.save(book);
-	return "redirect:../booklist";
+		return "redirect:../booklist";
+	}
+	
+	//===========REST starts here=============
+	@RequestMapping(value="/booklistjson", method = RequestMethod.GET)
+	public @ResponseBody List<Book> getBooks(){
+		return (List<Book>) repository.findAll();
+	}
+	
+	@RequestMapping(value="/bookjson/{id}", method = RequestMethod.GET)
+	public @ResponseBody Book findbookRest(@PathVariable("id") Long bookId) {
+		return repository.findOne(bookId);
 	}
 	
 }
