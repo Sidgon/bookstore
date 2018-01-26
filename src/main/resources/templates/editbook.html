@@ -3,19 +3,27 @@
 <head>
 <title>Server Programming withSpring Boot</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css" th:href="@{css/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css}" />
+<style>
+	#container, h1 {padding-left: 10%; padding-right: 10%; padding-top: 20px}
+</style>
 </head>
 
 <body>
 	<h1>Edit a book</h1>
-	<div>
-		<form th:object="${book}" th:action="@{../edit/{id}(id=${book.id})}" action="#" method="post">
+	<div id="container">
+		<form class="form-horizontal" th:object="${book}" th:action="@{../edit/{id}(id=${book.id})}" action="#" method="post">
 			<input type="hidden" th:field="*{id}" class="form-control"/>
-			<input type="text" th:field="*{title}" />
-			<input type="text" th:field="*{author}" />
-			<input type="text" th:field="*{year}" />
-			<input type="text" th:field="*{isbn}" />
-			<input type="text" th:field="*{price}" />
-			<input type="submit" class="btn btn-success" value="Save"></input>
+			<input class="col-sm-10 form-control" type="text" th:field="*{title}" />
+			<input class="col-sm-10 form-control" type="text" th:field="*{author}" />
+			<input class="col-sm-10 form-control" type="text" th:field="*{year}" />
+			<input class="col-sm-10 form-control" type="text" th:field="*{isbn}" />
+			<input class="col-sm-10 form-control" type="text" th:field="*{price}" /> 
+			<select  id="catlist" th:field="*{category}" class="form-control">
+				<option th:each="category: ${categorys}"
+					th:value="${category.id}" th:text="${category.name}"></option>
+			</select>
+			<input class="btn btn-success" type="submit" value="Save"></input>
 		</form>
 	</div>
 </body>

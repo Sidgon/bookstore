@@ -3,25 +3,37 @@
 <head>
 <title>Server Programming withSpring Boot</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css" th:href="@{css/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css}" />
+<style>
+	#container, h1 {padding-left: 10%; padding-right: 10%; padding-top: 20px}
+</style>
 </head>
 
 <body>
 	<h1>Add a book</h1>
-	<div>
-		<form th:object="${book}" th:action="@{save}" action="#"
-			method="post">
-			<label for="title">Title</label> 
-			<input type="text" id="title" th:field="*{title}" />
-			<label for="author">Author</label>
-			<input type="text" id="author" th:field="*{author}" />
-			<label for="year">Year</label>
-			<input type="text" th:field="*{year}" />
-			<label for="isbn">ISBN</label>
-			<input type="text" th:field="*{isbn}" />
-			<label for="price">Price</label>
-			<input type="text" th:field="*{price}" />
-			<input type="submit" value="Save"></input>
+	<div id="container" class="form-group form-group-lg">
+		<form class="form-horizontal" th:object="${book}" th:action="@{save}" action="#" method="post">
+			<label class="col-sm-2 control-label" for="title">Title</label>
+			<input class="col-sm-10 form-control" type="text" id="title" th:field="*{title}" />
+			<label class="col-sm-2 control-label" for="author">Author</label> 
+			<input class="col-sm-10 form-control" type="text" id="author" th:field="*{author}" />
+			<label class="col-sm-2 control-label" for="year">Year</label>
+			<input class="col-sm-10 form-control" type="text" th:field="*{year}" />
+			<label class="col-sm-2 control-label" for="isbn">ISBN</label>
+			<input class="col-sm-10 form-control" type="text" th:field="*{isbn}" />
+			<label class="col-sm-2 control-label" for="price">Price</label>
+			<input class="col-sm-10 form-control" type="text" th:field="*{price}" /> 
+			<label class="col-sm-2 control-label" for="catlist">Category</label> 
+			<select id="catlist" th:field="*{category}" class="form-control">
+				<option th:each="category: ${categorys}"
+					th:value="${category.id}" th:text="${category.name}"></option>
+			</select>
+			
+			<input class="btn btn-success" type="submit" value="Save"></input>
 		</form>
+	</div>
+	<div>
+		
 	</div>
 </body>
 </html>

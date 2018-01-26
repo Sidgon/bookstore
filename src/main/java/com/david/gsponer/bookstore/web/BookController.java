@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.david.gsponer.bookstore.domain.Book;
 import com.david.gsponer.bookstore.domain.BookRepository;
+import com.david.gsponer.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private CategoryRepository crepository;
 	
 	@RequestMapping(value="/booklist", method=RequestMethod.GET)
 	public String getindex(Model model) {
@@ -29,6 +32,7 @@ public class BookController {
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String addBook(Model model) {
 		model.addAttribute("book", new Book());
+		model.addAttribute("categorys", crepository.findAll());
 		return "addbook";
 	}
 	
@@ -40,14 +44,15 @@ public class BookController {
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteBook(@PathVariable("id") Long bookId, Model model){
-	repository.delete(bookId);
-	return "redirect:../booklist";
+		repository.delete(bookId);
+		return "redirect:../booklist";
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String editBook(@PathVariable("id") Long bookId, Model model){
-	model.addAttribute("book", repository.findOne(bookId));
-	return "editbook";
+		model.addAttribute("book", repository.findOne(bookId));
+		model.addAttribute("categorys", crepository.findAll());
+		return "editbook";
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
