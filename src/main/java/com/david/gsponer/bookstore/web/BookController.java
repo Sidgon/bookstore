@@ -75,4 +75,19 @@ public class BookController {
 		return repository.findOne(bookId);
 	}
 	
+	//security
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String loginPage() {
+		return "login";
+	}
+	
+	
+	
+/*
+	@RequestMapping(value="/login", method = RequestMethod.POST)
+	public String loginpost(Model model) {
+		System.out.println("login succesfull");
+		return "redirect:booklist";
+	}
+*/
 }
