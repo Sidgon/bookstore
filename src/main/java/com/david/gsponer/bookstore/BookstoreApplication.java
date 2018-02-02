@@ -34,6 +34,7 @@ public class BookstoreApplication {
 			User u1 = new User("user1", "$2a$04$aid3MnXoX7OyKYmJ.63PUe5UPmOH1uFm/XVCb0xOh3rtu5ycfgw0S", "test@user.com", "ADMIN");
 			User u2 = new User("user2", "$2a$04$Uwt0jkQ634YjeH/nJoUJjea/akAsA.ZuviWMoaRVBhRRTm7G1xSxK", "test2@email.com", "USER");
 			urepository.save(u1);
+			urepository.save(u2);
 		};
 	}
 	
