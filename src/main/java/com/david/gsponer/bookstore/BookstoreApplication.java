@@ -9,12 +9,14 @@ import com.david.gsponer.bookstore.domain.Book;
 import com.david.gsponer.bookstore.domain.BookRepository;
 import com.david.gsponer.bookstore.domain.Category;
 import com.david.gsponer.bookstore.domain.CategoryRepository;
+import com.david.gsponer.bookstore.domain.User;
+import com.david.gsponer.bookstore.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
 
 	@Bean
-	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository) {
+	public CommandLineRunner demo(BookRepository repository, CategoryRepository crepository, UserRepository urepository) {
 		return (args) -> {
 			System.out.println("Loading data:");
 			Category c1=new Category("Animals");
@@ -27,6 +29,11 @@ public class BookstoreApplication {
 			repository.save(new Book(c2, "Me in the desert Version 2", "David Gsponer", "2019", "CH896544", 20.50f));
 			repository.save(new Book(c3, "Me in the desert Version 3", "David Gsponer", "2050", "CH9874321", 30.50f));
 			System.out.println(repository.count()+" new Books have been added");
+			
+			//creating users
+			User u1 = new User("user1", "$2a$04$aid3MnXoX7OyKYmJ.63PUe5UPmOH1uFm/XVCb0xOh3rtu5ycfgw0S", "test@user.com", "ADMIN");
+			User u2 = new User("user2", "$2a$04$Uwt0jkQ634YjeH/nJoUJjea/akAsA.ZuviWMoaRVBhRRTm7G1xSxK", "test2@email.com", "USER");
+			urepository.save(u1);
 		};
 	}
 	

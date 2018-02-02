@@ -6,10 +6,19 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	private final UserDetailsService userDetailsService;
+	
+	@Autowired
+	public WebSecurityConfig(UserDetailServiceImpl userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -27,13 +36,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.permitAll();
 	}
 	
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		//Without using user in database
+		/*
 		auth
 		.inMemoryAuthentication()
 		.withUser("user").password("password").roles("USER")
 		.and()
 		.withUser("admin").password("admin").roles("ADMIN");
+		*/
+		//Using user in database
+		auth.userDetailsService(userDetailsService).passwordEncoder(new
+				BCryptPasswordEncoder());
+		
 	}
 	
 }
